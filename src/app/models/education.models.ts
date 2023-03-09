@@ -3,7 +3,9 @@
 
 
 export interface education{
-    level:string;
-    keywords:(string|null)[];
-    name:string;
+    institution:string;
+    location:string;
+    endDate:string;
+    startDate:string;
+    studyType:string;
 }

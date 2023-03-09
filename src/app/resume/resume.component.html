@@ -1,3 +1,148 @@
-<p>resume works!</p>
-<button (click)="getResumeHopefully()">Clicky</button>
-<!-- <h1 *ngIf="resume " >{{tryGetValues()}}</h1> -->
+
+<div class="flex col justify-between resume-global" *ngIf="resume !== null">
+    <div >
+        <h1 
+        class="txt-center" >
+        <span class="first-name" >{{resume.basics.name.split(' ')[0]}}</span>
+        <span class="last-name">{{resume.basics.name.split(' ')[1]}}</span></h1>
+    </div>
+    
+    <div class="flex row">
+        <p 
+        class="txt-center">
+        <i class="bi bi-envelope-fill">
+
+        </i>{{resume.basics.email}} |
+
+        <i class="bi bi-phone-fill">
+        </i>{{resume.basics.phone}} |
+        
+        <i class="bi bi-geo-alt-fill">
+        </i>{{resume.basics.location.address}} |
+
+       <i class="bi bi-link-45deg">
+        </i><a 
+        class="txt-no-decor" 
+        href={{resume.basics.website}} 
+        >{{resume.basics.website}}</a>
+    </p>
+        
+    </div>
+    <div class="" >
+        
+        <h2 class="heading">
+            <span class="" >
+                {{resume.headings.education}}
+            </span>
+        </h2>
+    </div>
+    
+    <div class="mb-30" *ngFor="let school of resume.education;index as i">
+        <table
+        class="flex justify-between" >
+            <span class="txt-bold txt-left">
+                {{school.institution}}
+            </span>
+            <span class="txt-right txt-italic txt-light" >
+                {{school.location}}
+            </span>
+        </table>    
+        <table class="flex justify-between" >
+            <span class="txt-left txt-light" >
+                {{school.studyType}}
+            </span>
+            <span class="txt-italic txt-light txt-grey" >
+                {{school.startDate}}-{{school.endDate}}
+            </span>
+        </table>
+    </div>
+    <h2 class="heading mb-30">
+        <span class="" >
+            {{resume.headings.skills}}
+        </span>
+    </h2>
+    <table class="flex" *ngFor="let skill of resume.skills">
+        <th class="txt-bold" >{{skill.name}}:&nbsp; </th>
+        <table class="flex " *ngFor="let key of skill.keywords;index as i">
+            <td>
+                <span>
+                    {{key}}<span 
+                    *ngIf="i < skill.keywords.length - 1" >,&nbsp;
+                </span> 
+                </span>
+                
+                
+            </td>
+        </table>
+    </table>
+    <h2 class="heading mt-30">
+        <span class="" >
+            {{resume.headings.projects}}
+        </span>
+    </h2>
+    <table class="flex col" *ngFor="let project of resume.projects">
+        <th class="txt-bold">
+            {{project.name}}
+        </th>
+        <td>
+            {{project.description}}
+        </td>
+    </table>
+    <h2 class="heading mt-30">
+        <span class="" >
+            {{resume.headings.work}}
+        </span>
+    </h2>
+    <table class="flex row" *ngFor="let job of resume.work">
+        <th class="flex justify-between">
+            <span>
+                {{job.company}}
+            </span>
+            <span class="txt-light" >
+                {{job.location}}
+            </span>
+        </th>
+        <th class="txt-light flex justify-between">
+            <span class="txt-small" >
+                {{job.position}}
+            </span>
+            <span class="txt-light txt-italic txt-grey" >
+                {{job.startDate}}-{{job.endDate}}
+            </span>
+        </th>
+        <table class="flex" *ngFor="let height of job.highlights">
+            
+            <li class="txt-small " >
+                {{height}}
+            </li>
+        </table>
+    </table>
+    <h2 class="heading mt-30">
+        <span class="" >
+            {{resume.headings.awards}}
+        </span>
+    </h2>
+    <table class="flex justify-between" *ngFor="let award of resume.awards" >
+        <td>
+            <span class="txt-left txt-small" >
+                {{award.date}}
+            </span>
+            <span class="txt-left txt-bold-small" >
+                &nbsp;&nbsp;{{award.title}}
+            </span>
+        </td>
+        <td>
+            <span class="txt-right txt-light txt-italic txt-grey"  >
+                {{award.awarder}}
+            </span>
+        </td>
+    </table>
+</div>
+
+<!-- company:string;
+location:string;
+position:string;
+website:string | null;
+endDate:string;
+highlights:string[];
+startDate:string; -->

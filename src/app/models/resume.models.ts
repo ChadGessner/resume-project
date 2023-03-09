@@ -1,12 +1,10 @@
-import { Type } from "@angular/core";
-import { forkJoin } from "rxjs";
-import { iresume } from "./resume.interface";
 
 export class resume {
     public selectedTemplate:number;
     public headings:{
         work:string ;
         education:string;
+        awards:string;
         skills:string;
         projects:string;
     }
@@ -20,9 +18,11 @@ export class resume {
         website:string;
     }
     public education:{
-        level:string;
-        keywords:(string|null)[];
-        name:string;
+        institution:string;
+        location:string;
+        endDate:string;
+        startDate:string;
+        studyType:string;
     }[];
     public work:{
         company:string;
@@ -56,6 +56,7 @@ export class resume {
         headings:{
             work:string,
             education:string,
+            awards:string,
             skills:string,
             projects:string
         }, basics:{
@@ -68,9 +69,11 @@ export class resume {
             website:string
         },
         education:{
-            level:string,
-            keywords:(string|null)[],
-            name:string
+            institution:string,
+            location:string,
+            endDate:string,
+            startDate:string,
+            studyType:string,
         }[],
         work:{
             company:string,
@@ -109,22 +112,5 @@ export class resume {
         this.awards = awards;
         this.sections = sections;
     }
-    // public get selectedTemplate():number{ 
-    //     return this._selectedTemplate;
-    // }
-    // public set selectedTemplate(val:number){
-    //     this._selectedTemplate = val;
-    // }
-    
-    // public* getValues(kv:(number|string|string[]|{})[]) {
-    //     const keys = Object.keys(resume);
-    //     for(let i = 0; i < keys.length;i++ ){
-    //         yield kv[i];
-    //     }
-        
-    // }
-    // public getInstance(generator:()=>){
-    //     return new resume(generator);
-    // }
 
 }

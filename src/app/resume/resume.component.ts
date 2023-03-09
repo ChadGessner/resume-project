@@ -22,10 +22,8 @@ export class ResumeComponent implements OnInit {
   }
     
   ngOnInit(): void {
-    //this.api.fetchResume().subscribe(x => console.log(x + 'super double ultra quasi gay'))
-    //this.api.fetchResume().subscribe(x => this.anArray.push(x))
     this.api.fetchResume().subscribe(x => {
-      console.log(x)
+      this.resume = x
     })
   }
   fetch(sub:Observer<typeof resume|resume>){
@@ -37,7 +35,9 @@ export class ResumeComponent implements OnInit {
     return this.api.fetchResume().subscribe(x => x);
   }
   getResumeHopefully(){
-    return this.fetch(this.resumeSubscription);
+    const isCanHasNotEqualNull = this.resume !== null;
+    console.log(isCanHasNotEqualNull)
+    return isCanHasNotEqualNull;
   }
   tryGetValues(){
     if(this.resume){

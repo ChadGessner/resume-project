@@ -1,7 +1,7 @@
-import {HttpClient} from '@angular/common/http'
-import {Component, Injectable, OnInit} from '@angular/core'
-import { Observable, forkJoin, of } from 'rxjs'
-import { delay, map } from 'rxjs/operators'
+import { HttpClient } from '@angular/common/http'
+import { Injectable, OnInit} from '@angular/core'
+
+import { map } from 'rxjs/operators'
 import { resume } from './models/resume.models'
 import { awards } from './models/awards.models'
 import { basics } from './models/basics.models'
@@ -14,54 +14,34 @@ import {work} from './models/work.models'
 import { iresume } from './models/resume.interface'
 @Injectable()
 export class ApiService implements OnInit{
-    url:string = "https://localhost:7250/Resume"
+    url:string = "https://localhost:7250/Resume";
+    justValues:(selectedTemplate|
+        basics|
+        education[]|
+        headings|
+        work[]|
+        skills[]|
+        projects[]|
+        awards[]|
+        string[])[] = [];
     constructor(private http:HttpClient) {}
 
 
     ngOnInit(): void {
         
     }
-    
-    // public getResumeTypes<T>(obj:T){
-    //     let obs : Observable<void>[] = []
-    //     for(let [key, value] of Object.entries(obj)) {
-    //         if(typeof value === 'object'){
-    //             let o = this.getResumeTypes(value).pipe(map(v=>{obj[key] = v}))
-    //             obs.push(o);
-    //         }else if(typeof value === "string"){
-    //             let o = this.getResumeTypes()
-    //         }
-    //     }
-    //     return forkJoin(obs).pipe(map(v=> obj));
-    // }
-    // translateAll<T>(obj:{T:T}).subscribe(v=>{
-    //     console.log(v);
-        
-    // })
-    // public getObj<T>(val:any, value:any){
 
-    // }
-    // public translate = {
-    //     get(value: string) {
-    //         return of("translated" + value).pipe(delay(1000));
-    //     }
-    // }
-    // public readonly translatePrevix = "translate:";
-    // public translateAll<T>(obj:T){
-    //     let obs: Observable<void>[] = [];
+    public getResumeFFS(array:(selectedTemplate|
+        basics|
+        education[]|
+        headings|
+        work[]|
+        skills[]|
+        projects[]|
+        awards[]|
+        string[])[]){
         
-    //         for(let [key, value] of Object.entries(obj)){
-    //             if(typeof value === "object"){
-    //                 let o = this.translateAll(value).pipe(map(v => {obj[key] = v}))
-    //             }
-    //         }
-        
-        
-    //}
-    // public* stuff(...array:(null|string|object)[]){
-    //     yield; 
-         
-    // }
+    }
     public fetchResume() {
         return this.http
         .get<{}>(this.url)
@@ -69,75 +49,8 @@ export class ApiService implements OnInit{
             (responseData:{
                 [key:string]:object
             })=>{
-                //console.log(responseData);
                 let r:iresume;
-                let array:(string|number|object)[] = []
-                let justValues:(
-                    selectedTemplate|
-                    basics|
-                    education[]|
-                    headings|
-                    work[]|
-                    skills[]|
-                    projects[]|
-                    awards[]|
-                    string[])[] = []
-                //let obj:object = {}
-                let obj:{
-                    selectedTemplate:number;
-                    headings:{
-                        work:string;
-                        education:string;
-                        skills:string;
-                        projects:string;
-                    }
-                    basics:{
-                        name:string;
-                        email:string;
-                        phone:string;
-                        location:{
-                            address:string;
-                        }
-                        website:string;
-                    }
-                    education:{
-                        level:string;
-                        keywords:(string|null)[];
-                        name:string;
-                    }[];
-                    work:{
-                        company:string;
-                        location:string;
-                        position:string;
-                        website:string | null;
-                        endDate:string;
-                        highlights:string[];
-                        startDate:string;
-                    }[];
-                    skills:{
-                        level:string | null;
-                        keywords:(string|null)[];
-                        name:string;
-                    }[];
-                    projects:{
-                        name:string;
-                        keywords:string[];
-                        description:string;
-                
-                    }[];
-                    awards:{
-                        title:string;
-                        awarder:string;
-                        date:string;
-                    }[];
-                    sections:string[];
-                };
-                // for(const key in Object.keys(resume)){
-                //     console.log(key);
-                    
-                // }
                 let count  = 0;
-                let someObject = {};
                 let selectedTemplate:selectedTemplate;
                 let headings:headings;
                 let basics:basics;
@@ -147,127 +60,77 @@ export class ApiService implements OnInit{
                 let projects:projects[];
                 let awards:awards[];
                 let sections:string[];
-                for(const key in responseData)
+                for(const key in responseData){
                     if(responseData.hasOwnProperty(key)){
                         let c = responseData[key];
                         switch(count){
                             case 0:
+                                
                                 selectedTemplate = c as selectedTemplate;
-                                justValues.push(selectedTemplate)
+                                this.justValues.push(selectedTemplate)
                                 break;
                             case 1:
                                 headings =  c as headings ;
-                                justValues.push(headings)
+                                this.justValues.push(headings)
                                 break;
                             case 2:
                                 basics = c as basics ;
-                                justValues.push(basics)
+                                this.justValues.push(basics)
                                 break;
                             case 3: 
                                 education = c as education[] ;
-                                justValues.push(education)
+                                console.log(education)
+                                this.justValues.push(education)
                                 break;
                             case 4:
                                 work = c as work[] ;
-                                justValues.push(work)
+                                this.justValues.push(work)
                                 break;
                             case 5:
                                 skills = c as skills[] ;
-                                justValues.push(skills)
+                                this.justValues.push(skills)
                                 break;
                             case 6:
                                 projects =  c as projects[] ;
-                                justValues.push(projects)
+                                this.justValues.push(projects)
                                 break;
                             case 7:
                                 awards = c as awards[];
-                                justValues.push(awards)
+                                this.justValues.push(awards)
                                 break;
                             case 8:
                                 sections = c as string[] ;
-                                justValues.push(sections)
+                                this.justValues.push(sections)
                                 break;
                             default:
-                                count++;
                                 break; 
                         }
-                        let object = {[key] : responseData[key]};
-                        let v = responseData[key];
-                        array.push(object)
-                        
-                    }()=>{
-                    r = new resume(
-                        selectedTemplate.value,
-                        headings,
-                        basics,
-                        education,
-                        work,
-                        skills,
-                        projects,
-                        awards,
-                        sections
-                    )
-                        return r;
-                }
-                    
-                    
-
-                    //console.log(object)
-                    //array.push(object)
-                    //console.log(Object.keys(r as resume));
-                    //obj[Symbol(key)] = responseData[key];
-                    
-        
+                        count++;
+                    }
                 }
                 
-                // [...justValues].forEach((c,i)=>{
-                //     console.log(c);
-                //     switch(i){
-                //         case 0:
-                //             selectedTemplate = c as selectedTemplate ? c as selectedTemplate : selectedTemplate;
-                //             break;
-                //         case 1:
-                //             headings = c as headings ? c as headings : headings;
-                //             break;
-                //         case 2:
-                //             basics = c as basics ? c as basics : basics;
-                //             break;
-                //         case 3: 
-                //             education = c as education[] ? c as education[] : education;
-                //             break;
-                //         case 4:
-                //             work = c as work[] ? c as work[] : work;
-                //             break;
-                //         case 5:
-                //             skills = c as skills[] ? c as skills[] : skills;
-                //             break;
-                //         case 6:
-                //             projects = c as projects[] ? c as projects[] : projects;
-                //             break;
-                //         case 7:
-                //             awards = c as awards[] ? c as awards[] : awards;
-                //             break;
-                //         case 8:
-                //             sections = c as string[] ? c as string[] : sections;
-                //             break;
-                //         default:
-                //             break; 
-                //     }
-                // }, 
-
-                //)
-                //console.log(resume.prototype);
-                
-                
-            //}
-            
+                const durp:selectedTemplate = this.justValues[0] as selectedTemplate
+                const hur:headings = this.justValues[1] as headings
+                const dur:basics = this.justValues[2] as basics
+                const bahDurp:education[] = this.justValues[3] as education[]
+                const durpDeeDoo:work[] = this.justValues[4] as work[]
+                const heeDeeHee:skills[] = this.justValues[5] as skills[]
+                const hiDeeHi:projects[] = this.justValues[6] as projects[]
+                const hoDeeHo:awards[] = this.justValues[7] as awards[]
+                const heyDeeHay:string[] = this.justValues[8] as string[]
+                r = new resume(
+                    2,
+                    hur,
+                    dur,
+                    bahDurp,
+                    durpDeeDoo,
+                    heeDeeHee,
+                    hiDeeHi,
+                    hoDeeHo,
+                    heyDeeHay
+                )
+                    return r;
+            }
         ))
-        
     }
 }
-    
-    
-    // public static getRes<T>(...args:(number|string|null|[]|{})[]):resume{
-    //     let resumeKeys = Object.keys(resume);
-    //     return new resume(forkJoin(...args).pipe(map((v,i)=> resumeKeys[i]=v)));
-    // }

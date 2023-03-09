@@ -5,6 +5,7 @@ export interface iresume {
     headings:{
         work:string;
         education:string;
+        awards:string
         skills:string;
         projects:string;
     }
@@ -18,9 +19,11 @@ export interface iresume {
         website:string;
     }
     education:{
-        level:string;
-        keywords:(string|null)[];
-        name:string;
+        institution:string;
+        location:string;
+        startDate:string;
+        endDate:string;
+        studyType:string;
     }[];
     work:{
         company:string;

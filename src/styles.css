@@ -1,1 +1,115 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+* {
+    font-family:sans-serif;
+    background-color:white;
+}
+.inline {
+    display:inline;
+}
+.flex {
+    display: flex;
+}
+.relative {
+    display:inline-block;
+    position: static;
+}
+.justify-center {
+    justify-content: center;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.justify-around {
+    justify-content: space-around;
+}
+.justify-evenly {
+    justify-content: space-evenly;
+}
+.justify-end {
+    justify-content: flex-end;
+}
+.justify-start {
+    justify-content: start;
+}
+.row {
+    flex-flow: row wrap;
+}
+.col {
+    flex-flow: column wrap;
+}
+.align-center {
+    align-items: center;
+}
+.txt-apart {
+    text-justify: distribute;
+}
+.txt-center {
+    text-align: center;
+}
+.txt-left {
+    text-align:left;
+}
+.txt-right {
+    text-align: right;
+}
+.txt-bold {
+    font-weight:900;
+}
+.txt-italic {
+    font-style:italic;
+}
+.txt-light{
+    font-size:smaller;
+    font-weight:500;
+}
+.txt-bold-small {
+    font-size:small;
+    font-weight:bold;
+}
+.txt-small {
+    font-size:small;
+    font-weight: 400;
+}
+.txt-grey {
+    color:grey;
+}
+.first-name {
+    font-family: Raleway;
+    font-weight: 100;
+    font-style:normal;
+}
+.txt-no-decor {
+    text-decoration: none;
+    color:black;
+}
+.last-name {
+    font-weight: 600;
+    transform: scaleX(1.13603);
+}
+.heading {
+    background:white;
+    line-height: .6em;
+    width:100%;
+    text-align:left;
+    
+    flex-direction: row;
+    border-bottom: 1px solid black;
+}
+.resume-global {
+    margin: 10vh 5vw 5vh 5vh;
+}
+
+.white {
+    background-color: white;
+}
+.mb-30 {
+    margin-bottom: 30px;
+}
+.mt-30 {
+    margin-top: 30px;
+}
+.ml-30 {
+    margin-left: 30px;
+}

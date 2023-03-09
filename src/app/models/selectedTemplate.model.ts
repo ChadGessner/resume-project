@@ -3,5 +3,5 @@
 
 
 export interface selectedTemplate {
-    value:number;
+    template:number;
 }
